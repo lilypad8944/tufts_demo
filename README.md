@@ -1,6 +1,6 @@
 # Tufts Demo
 
-[![GitHub Release](https://img.shields.io/github/v/release/UCO-HPC/buddy_jupyter?style=flat-square)](https://github.com/lilypad8944/tufts_demo/blob/main/CHANGELOG.md)
+[![GitHub Release](https://img.shields.io/github/v/release/lilypad8944/tufts_demo?style=flat-square)](https://github.com/lilypad8944/tufts_demo/blob/main/CHANGELOG.md)
 [![GitHub License](https://img.shields.io/github/license/lilypad8944/tufts_demo?style=flat-square)](https://opensource.org/licenses/MIT)
 ---
 
@@ -23,7 +23,7 @@ A system operating [Rocky] 8.9+ will be needed. These scripts have not been test
 ---
 ### Initial Setup
 - Copy the stackscripts into your linode account and update the user account information at the top of the scripts per the instruction located within the comment
-- Build your headnode as the linode user and set your hostname accordingly
+- Build your headnode with the stackscript
 - Generate ssh keys as your user
 - Repeat the stackscript steps for a compute node and copy your ssh keys using ssh-copy-id
 - Update the ansible inventory manually and copy your ssh keys and the new inventory between systems
