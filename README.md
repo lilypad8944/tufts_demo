@@ -6,6 +6,7 @@
 
 A series of scripts and config files to deploy a simple HPC demonstration. While the stackscripts designed for [Linode], this set of files could be convereted to run anywhere as most of them are agnostic.
 
+[Linode]: linode.com
 ---
 ## Prerequisites
 A system operating [Rocky] 8.9+ will be needed. These scripts have not been tested against other RHEL 8 compatibles or prior versions of Rocky. 
