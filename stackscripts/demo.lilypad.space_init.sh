@@ -27,6 +27,10 @@ setenforce 0
 cp /etc/sysconfig/selinux /etc/sysconfig/selinux.bak
 cp /tufts_demo/configs/selinux /etc/sysconfig/selinux
 
+# Backup and copy the Ansible hosts file
+cp /etc/ansible/hosts /etc/ansible/hosts.bak
+cp /tufts_demo/ansible/hosts /etc/ansible/hosts
+
 # Setup our firewall
 firewall-cmd --add-service=ssh --permanent
 
