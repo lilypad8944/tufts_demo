@@ -1,0 +1,9 @@
+[all]
+demo.lilypad.xyz
+node[01-02].lilypad.xyz
+
+[head]
+demo.lilypad.xyz
+
+[compute]
+node[01-02].lilypad.xyz
