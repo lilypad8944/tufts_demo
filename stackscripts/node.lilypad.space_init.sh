@@ -19,13 +19,11 @@ dnf install ansible vim git openssh-server firewalld -y
 git clone https://github.com/lilypad8944/tufts_demo
 
 # Backup and copy sshd config
-cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
-cp /tufts_demo/configs/sshd_config /etc/ssh/sshd_config
+cp -b /tufts_demo/etc/ssh/sshd_config /etc/ssh/sshd_config
 
 # Stop SELinux. This was disabled to save time
 setenforce 0
-cp /etc/sysconfig/selinux /etc/sysconfig/selinux.bak
-cp /tufts_demo/configs/selinux /etc/sysconfig/selinux
+cp -b /tufts_demo/etc/sysconfig/selinux /etc/sysconfig/selinux
 
 # Setup our firewall
 firewall-cmd --add-service=ssh --permanent
