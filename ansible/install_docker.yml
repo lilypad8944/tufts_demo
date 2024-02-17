@@ -41,7 +41,7 @@
     - name: Add the current user to the docker group
       tags: add_user_to_group
       user:
-        name: rocky
+        name: lilypad
         groups: docker
         append: yes
 
