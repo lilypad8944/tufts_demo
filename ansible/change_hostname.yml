@@ -20,9 +20,9 @@
     - name: Waiting for server to come back up
       local_action: wait_for host="{{ inventory_hostname }}" port=22 state=started
 
-    - name: Validate ansible_fqdn == inventory_hostname
+    - name: Validate ansible_hostname == inventory_hostname
       tags:
         - validate
       assert:
         that:
-          ansible_fqdn == inventory_hostname
+          ansible_hostname == inventory_hostname
