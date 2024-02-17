@@ -28,8 +28,6 @@
       shell: |
         dnf install -y yum-utils
         yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-      args:
-        warn: no
 
     - name: Install the latest version of Docker Engine and containerd
       tags: install_latest
