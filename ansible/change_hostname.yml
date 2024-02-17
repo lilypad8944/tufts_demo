@@ -1,13 +1,15 @@
 ---
 
-- hosts: all
+- hosts: compute
 
   tasks:
     - name: Change the hostname to match *.lilypad.space
+      become: yes
       hostname:
         name="{{ inventory_hostname }}"
 
     - name: Restart node
+      become: yes
       command: shutdown -r now "Ansible hostname update"
       async: 0
       poll: 0
