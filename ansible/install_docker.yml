@@ -1,0 +1,56 @@
+---
+
+- name: Upgrade all packages on server
+  dnf:
+    name: '*'
+    tags: update
+    become: yes
+    state: latest
+
+- name: Set up docker repository
+  tags: add_repo
+  become: yes
+  shell: |
+    dnf install -y yum-utils
+    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  args:
+    warn: no
+
+- name: Uninstall old versions
+  dnf:
+    name:
+      - docker-client
+      - docker-client-latest
+      - docker-common
+      - docker-latest
+      - docker-latest-logrotate
+      - docker-logrotate
+      - docker-engine
+    tags: remove_old
+    become: yes
+    state: absent
+
+- name: Install the latest version of Docker Engine and containerd
+  dnf:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    tags: install_latest
+    become: yes
+  notify: Start and enable docker
+
+- name: Add the current user to the docker group
+  user:
+    name: lilypad
+    tags: add_user_to_group
+    groups: docker
+    append: yes
+
+- name: Start and enable docker
+  systemd:
+    name: docker
+    tags: start
+    become: yes
+    state: started
+    enabled: yes
