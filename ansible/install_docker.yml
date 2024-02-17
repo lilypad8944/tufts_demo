@@ -1,56 +1,55 @@
 ---
+- name: Install docker on Rocky 8
+  hosts: head
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Upgrade all packages on servers
+      dnf:
+        name: '*'
+        tags: upgrade
+        state: latest
 
-- name: Upgrade all packages on server
-  dnf:
-    name: '*'
-    tags: update
-    become: yes
-    state: latest
+    - name: Uninstall old versions
+      dnf:
+        name:
+          - docker-client
+          - docker-client-latest
+          - docker-common
+          - docker-latest
+          - docker-latest-logrotate
+          - docker-logrotate
+          - docker-engine
+        tags: remove_old
+        state: absent
 
-- name: Set up docker repository
-  tags: add_repo
-  become: yes
-  shell: |
-    dnf install -y yum-utils
-    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-  args:
-    warn: no
+    - name: Set up docker repository
+      tags: add_repo
+      shell: |
+        dnf install -y yum-utils
+        yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+      args:
+        warn: no
 
-- name: Uninstall old versions
-  dnf:
-    name:
-      - docker-client
-      - docker-client-latest
-      - docker-common
-      - docker-latest
-      - docker-latest-logrotate
-      - docker-logrotate
-      - docker-engine
-    tags: remove_old
-    become: yes
-    state: absent
+    - name: Install the latest version of Docker Engine and containerd
+      tags: install_latest
+      dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+      notify: Start and enable docker
 
-- name: Install the latest version of Docker Engine and containerd
-  dnf:
-    name:
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
-    tags: install_latest
-    become: yes
-  notify: Start and enable docker
+    - name: Add the current user to the docker group
+      tags: add_user_to_group
+      user:
+        name: rocky
+        groups: docker
+        append: yes
 
-- name: Add the current user to the docker group
-  user:
-    name: lilypad
-    tags: add_user_to_group
-    groups: docker
-    append: yes
-
-- name: Start and enable docker
-  systemd:
-    name: docker
-    tags: start
-    become: yes
-    state: started
-    enabled: yes
+  handlers:
+    - name: Start and enable docker
+      tags: start_service
+      systemd:
+        name: docker
+        state: started
