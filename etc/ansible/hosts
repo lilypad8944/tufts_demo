@@ -1,0 +1,5 @@
+[head]
+demo ansible_ssh_host=demo.lilypad.space
+
+[compute]
+node[01:02] ansible_ssh_host=node[01:02].lilypad.space
