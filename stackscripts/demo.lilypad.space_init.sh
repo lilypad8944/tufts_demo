@@ -5,6 +5,9 @@
 # perl -e 'print crypt("Y0urP@55w0rdH3r3", "salt"),"\n"'
 useradd -G sudo -m -p GenerateMe lilypad
 
+# Set system hostname
+hostnamectl set-hostname demo.lilypad.space
+
 # Update and add epel-release
 dnf update -y
 dnf install epel-release -y
