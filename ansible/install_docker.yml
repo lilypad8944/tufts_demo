@@ -5,12 +5,13 @@
   become: true
   tasks:
     - name: Upgrade all packages on servers
+      tags: upgrade
       dnf:
         name: '*'
-        tags: upgrade
         state: latest
 
     - name: Uninstall old versions
+      tags: remove_old
       dnf:
         name:
           - docker-client
@@ -20,7 +21,6 @@
           - docker-latest-logrotate
           - docker-logrotate
           - docker-engine
-        tags: remove_old
         state: absent
 
     - name: Set up docker repository
