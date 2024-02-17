@@ -6,7 +6,7 @@
 useradd -G wheel -m -p GenerateMe lilypad
 
 # Set system hostname
-hostnamectl set-hostname node.lilypad.space
+hostnamectl set-hostname node
 
 # Update and add epel-release
 dnf update -y
