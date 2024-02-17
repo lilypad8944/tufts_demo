@@ -27,7 +27,8 @@ cp -b /tufts_demo/etc/sysconfig/selinux /etc/sysconfig/selinux
 
 # Backup and copy Ansible files
 cp -b /tufts_demo/etc/ansible/hosts /etc/ansible/hosts
-cp -b /tufts_demo/etc/ansible/group_vars /etc/ansible/group_vars
+mkdir -p /etc/ansible/group_vars
+cp -b /tufts_demo/etc/ansible/group_vars/servers /etc/ansible/group_vars/servers
 
 # Setup our firewall
 firewall-cmd --add-service=ssh --permanent
